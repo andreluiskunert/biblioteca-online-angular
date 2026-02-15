@@ -1,0 +1,99 @@
+<section class="page">
+  <header class="page__header">
+    <div class="page__title">
+      <h2>Livros</h2>
+      <p>Visualize em lista ou catálogo. Use a busca para filtrar.</p>
+    </div>
+
+    <div class="actions" role="group" aria-label="Ações de visualização">
+      <button type="button" class="seg" [class.is-active]="modo() === 'lista'" (click)="setModo('lista')">
+        Lista
+      </button>
+      <button type="button" class="seg" [class.is-active]="modo() === 'catalogo'" (click)="setModo('catalogo')">
+        Catálogo
+      </button>
+      <button type="button" class="danger ghost" (click)="limparTudo()" aria-label="Apagar todos os livros">
+        Limpar tudo
+      </button>
+    </div>
+  </header>
+
+  <div class="toolbar" role="search">
+    <label class="sr-only" for="busca">Buscar livro</label>
+    <input
+      id="busca"
+      type="search"
+      placeholder="Buscar por título, autor, ano ou categoria…"
+      [value]="busca()"
+      (input)="busca.set(($any($event.target).value ?? '').toString())"
+      autocomplete="off"
+    />
+    <a class="btn" routerLink="/dados" aria-label="Cadastrar novo livro">
+      <span aria-hidden="true">➕</span>
+      <span>Novo</span>
+    </a>
+  </div>
+
+  <div class="empty" *ngIf="livrosFiltrados().length === 0">
+    <p><strong>Nenhum livro encontrado.</strong></p>
+    <p>Cadastre um novo livro para começar.</p>
+    <a class="btn" routerLink="/dados">Cadastrar livro</a>
+  </div>
+
+  <!-- LISTA (estilo WhatsApp: itens tipo “conversa”) -->
+  <ul class="chatlist" *ngIf="modo() === 'lista' && livrosFiltrados().length > 0">
+    <li *ngFor="let livro of livrosFiltrados(); trackBy: trackById" class="chatitem">
+      <div class="avatar" aria-hidden="true">
+        <span>📗</span>
+      </div>
+
+      <div class="chatmeta">
+        <div class="chatmeta__top">
+          <div class="chatmeta__title">
+            <span class="titulo">{{ livro.titulo }}</span>
+            <span class="pill" *ngIf="livro.categoria">{{ livro.categoria }}</span>
+          </div>
+          <span class="time" title="Data de cadastro">{{ livro.criadoEmISO | date:'dd/MM' }}</span>
+        </div>
+
+        <div class="chatmeta__bottom">
+          <span class="sub">{{ livro.autor }} <span *ngIf="livro.ano">• {{ livro.ano }}</span></span>
+          <button type="button"
+                  class="icon danger"
+                  (click)="remover(livro)"
+                  [attr.aria-label]="'Excluir: ' + livro.titulo">
+            🗑
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- CATÁLOGO (cards) -->
+  <div class="grid" *ngIf="modo() === 'catalogo' && livrosFiltrados().length > 0">
+    <article class="card" *ngFor="let livro of livrosFiltrados(); trackBy: trackById">
+      <div class="cover" aria-hidden="true">
+        <span>📘</span>
+      </div>
+
+      <div class="card__body">
+        <h3 class="card__title">{{ livro.titulo }}</h3>
+        <p class="card__sub">{{ livro.autor }}</p>
+        <p class="card__meta">
+          <span *ngIf="livro.categoria">{{ livro.categoria }}</span>
+          <span *ngIf="livro.categoria && livro.ano"> • </span>
+          <span *ngIf="livro.ano">{{ livro.ano }}</span>
+        </p>
+
+        <div class="card__actions">
+          <button type="button" class="btn danger ghost" (click)="remover(livro)">Excluir</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Floating action button (mobile) -->
+  <a class="fab" routerLink="/dados" aria-label="Cadastrar novo livro">
+    <span aria-hidden="true">＋</span>
+  </a>
+</section>

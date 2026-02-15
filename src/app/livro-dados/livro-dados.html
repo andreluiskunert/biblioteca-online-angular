@@ -1,0 +1,63 @@
+<section class="page">
+  <header class="page__header">
+    <div>
+      <h2>Cadastrar livro</h2>
+      <p>Preencha os campos abaixo. Campos com * são obrigatórios.</p>
+    </div>
+
+    <a class="btn ghost" routerLink="/" aria-label="Voltar para lista">
+      ← Voltar
+    </a>
+  </header>
+
+  <form class="form" (ngSubmit)="salvar()" #f="ngForm" novalidate>
+    <div class="field">
+      <label for="titulo">Título <span aria-hidden="true">*</span></label>
+      <input id="titulo" name="titulo" type="text"
+             [(ngModel)]="titulo"
+             required
+             autocomplete="off"
+             placeholder="Ex.: Clean Code" />
+    </div>
+
+    <div class="field">
+      <label for="autor">Autor <span aria-hidden="true">*</span></label>
+      <input id="autor" name="autor" type="text"
+             [(ngModel)]="autor"
+             required
+             autocomplete="off"
+             placeholder="Ex.: Robert C. Martin" />
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="ano">Ano</label>
+        <input id="ano" name="ano" type="number"
+               [(ngModel)]="ano"
+               inputmode="numeric"
+               placeholder="Ex.: 2008" />
+      </div>
+
+      <div class="field">
+        <label for="categoria">Categoria</label>
+        <input id="categoria" name="categoria" type="text"
+               [(ngModel)]="categoria"
+               autocomplete="off"
+               placeholder="Ex.: Programação" />
+      </div>
+    </div>
+
+    <p class="error" *ngIf="erro()" role="alert">{{ erro() }}</p>
+
+    <div class="form__actions">
+      <button type="submit" class="btn" [disabled]="!f.form.valid">
+        Salvar livro
+      </button>
+      <a class="btn ghost" routerLink="/">Cancelar</a>
+    </div>
+
+    <p class="hint">
+      Dica: depois de salvar, o livro aparece na lista e no catálogo.
+    </p>
+  </form>
+</section>

@@ -1,0 +1,71 @@
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<div class="app">
+  <header class="topbar" role="banner">
+    <div class="topbar__title">
+      <span class="topbar__logo" aria-hidden="true">📚</span>
+      <div>
+        <h1>Biblioteca Online</h1>
+        <p class="subtitle">Cadastro, exclusão e catálogo de livros</p>
+      </div>
+    </div>
+
+    <nav class="topbar__nav" aria-label="Navegação principal">
+      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Lista</a>
+      <a routerLink="/dados" routerLinkActive="is-active">Cadastrar</a>
+    </nav>
+  </header>
+
+  <!-- 🔥 BANNERS DE DIVULGAÇÃO DO PROJETO -->
+  <section class="banners" aria-label="Destaques do projeto">
+    <article class="banner">
+      <h2>📚 Biblioteca Online</h2>
+      <p>Sistema responsivo e acessível para cadastro, listagem e exclusão de livros.</p>
+    </article>
+
+    <article class="banner">
+      <h2>✅ Acessibilidade</h2>
+      <p>Navegação por teclado, foco visível, contraste e layout adaptado para mobile.</p>
+    </article>
+
+    <article class="banner">
+      <h2>⚡ Funcionalidades</h2>
+      <p>Busca inteligente, modo lista/catálogo, salvar dados no navegador e ações rápidas.</p>
+    </article>
+  </section>
+
+  <main id="conteudo" class="content" role="main" tabindex="-1">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- 📱 Barra inferior para celular (estilo WhatsApp) -->
+  <nav class="bottom-nav" aria-label="Navegação inferior">
+    <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" aria-label="Ir para lista">
+      <span aria-hidden="true">📄</span>
+      <span>Lista</span>
+    </a>
+    <a routerLink="/dados" routerLinkActive="is-active" aria-label="Ir para cadastro">
+      <span aria-hidden="true">➕</span>
+      <span>Cadastrar</span>
+    </a>
+  </nav>
+
+  <!-- 🧾 Rodapé -->
+  <footer class="footer" role="contentinfo" aria-label="Rodapé do site">
+    <div class="footer__content">
+      <p>
+        Desenvolvido por <strong>Andre Luis Kunert</strong> · 2026 ·
+        <span class="muted">Projeto acadêmico – Desenvolvimento Front-End com Angular</span>
+      </p>
+
+      <nav class="footer__links" aria-label="Redes do desenvolvedor">
+        <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn do desenvolvedor">
+          🔗 LinkedIn
+        </a>
+        <a href="https://github.com/andreluiskunert" target="_blank" rel="noopener noreferrer" aria-label="GitHub do desenvolvedor">
+          💻 GitHub
+        </a>
+      </nav>
+    </div>
+  </footer>
+</div>
